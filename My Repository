@@ -1,0 +1,99 @@
+import React from "react";
+import { motion } from "framer-motion";
+
+const artworks = [
+  { title: "Sunset Reverie", image: "https://via.placeholder.com/600x400?text=Artwork+1" },
+  { title: "Silent Thoughts", image: "https://via.placeholder.com/600x400?text=Artwork+2" },
+  { title: "Golden Hour", image: "https://via.placeholder.com/600x400?text=Artwork+3" },
+  { title: "Midnight Bloom", image: "https://via.placeholder.com/600x400?text=Artwork+4" },
+  { title: "Ephemeral Light", image: "https://via.placeholder.com/600x400?text=Artwork+5" },
+  { title: "Dreamscape", image: "https://via.placeholder.com/600x400?text=Artwork+6" },
+];
+
+const writings = [
+  {
+    title: "Fragments of Dawn",
+    excerpt: "A soft whisper of light breaks through the silence...",
+  },
+  {
+    title: "Echoes Within",
+    excerpt: "In the quiet corners of the mind, stories unfold...",
+  },
+  {
+    title: "The Space Between",
+    excerpt: "There exists a quiet space between what was and what will be...",
+  },
+  {
+    title: "Paper Moons",
+    excerpt: "We crafted dreams out of fragile things, hoping they would last...",
+  },
+  {
+    title: "Ink and Silence",
+    excerpt: "Every word left unsaid finds its way onto the page...",
+  },
+];
+
+export default function Portfolio() {
+  return (
+    <div className="bg-neutral-100 min-h-screen text-gray-800 font-serif">
+      {/* Header */}
+      <header className="text-center py-10">
+        <h1 className="text-4xl font-bold tracking-wide">Your Name</h1>
+        <p className="text-lg mt-2 italic">Art & Literature Portfolio</p>
+      </header>
+
+      {/* Gallery Section */}
+      <section className="px-6 md:px-20 py-10">
+        <h2 className="text-2xl font-semibold mb-6">Art Gallery</h2>
+        <div className="grid md:grid-cols-2 gap-8">
+          {artworks.map((art, index) => (
+            <motion.div
+              key={index}
+              whileHover={{ scale: 1.03 }}
+              className="bg-white rounded-2xl shadow-md overflow-hidden"
+            >
+              <img src={art.image} alt={art.title} className="w-full h-64 object-cover" />
+              <div className="p-4">
+                <h3 className="text-lg font-medium">{art.title}</h3>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* Writing Section */}
+      <section className="px-6 md:px-20 py-10 bg-white">
+        <h2 className="text-2xl font-semibold mb-6">Literary Works</h2>
+        <div className="space-y-6">
+          {writings.map((piece, index) => (
+            <motion.div
+              key={index}
+              whileHover={{ scale: 1.01 }}
+              className="p-6 border rounded-2xl shadow-sm"
+            >
+              <h3 className="text-xl font-semibold mb-2">{piece.title}</h3>
+              <p className="text-gray-600 italic">{piece.excerpt}</p>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section className="px-6 md:px-20 py-10 text-center">
+        <h2 className="text-2xl font-semibold mb-4">Commissions & Contact</h2>
+        <p className="mb-4">Interested in collaborating or commissioning a piece?</p>
+        <a
+          href="mailto:your@email.com"
+          className="inline-block px-6 py-3 bg-black text-white rounded-full"
+        >
+          Contact Me
+        </a>
+      </section>
+
+      {/* Footer */}
+      <footer className="text-center py-6 text-sm text-gray-500">
+        © {new Date().getFullYear()} Your Name. All rights reserved.
+      </footer>
+    </div>
+  );
+}
