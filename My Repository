@@ -1,99 +1,126 @@
-import React from "react";
-import { motion } from "framer-motion";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>arKAIve</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Georgia", serif;
+      background: #f5f5f5;
+      color: #222;
+    }
+    header {
+      text-align: center;
+      padding: 40px 20px;
+    }
+    h1 {
+      font-size: 42px;
+      letter-spacing: 2px;
+    }
+    section {
+      padding: 40px 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+      transition: transform 0.2s;
+    }
+    .card:hover {
+      transform: scale(1.02);
+    }
+    img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    .card-content {
+      padding: 15px;
+    }
+    .writing {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 15px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+      color: gray;
+    }
+    a.button {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 10px 20px;
+      background: black;
+      color: white;
+      text-decoration: none;
+      border-radius: 20px;
+    }
+  </style>
+</head>
+<body>
 
-const artworks = [
-  { title: "Sunset Reverie", image: "https://via.placeholder.com/600x400?text=Artwork+1" },
-  { title: "Silent Thoughts", image: "https://via.placeholder.com/600x400?text=Artwork+2" },
-  { title: "Golden Hour", image: "https://via.placeholder.com/600x400?text=Artwork+3" },
-  { title: "Midnight Bloom", image: "https://via.placeholder.com/600x400?text=Artwork+4" },
-  { title: "Ephemeral Light", image: "https://via.placeholder.com/600x400?text=Artwork+5" },
-  { title: "Dreamscape", image: "https://via.placeholder.com/600x400?text=Artwork+6" },
-];
+<header>
+  <h1>arKAIve</h1>
+  <p><i>Art & Literary Portfolio</i></p>
+</header>
 
-const writings = [
-  {
-    title: "Fragments of Dawn",
-    excerpt: "A soft whisper of light breaks through the silence...",
-  },
-  {
-    title: "Echoes Within",
-    excerpt: "In the quiet corners of the mind, stories unfold...",
-  },
-  {
-    title: "The Space Between",
-    excerpt: "There exists a quiet space between what was and what will be...",
-  },
-  {
-    title: "Paper Moons",
-    excerpt: "We crafted dreams out of fragile things, hoping they would last...",
-  },
-  {
-    title: "Ink and Silence",
-    excerpt: "Every word left unsaid finds its way onto the page...",
-  },
-];
-
-export default function Portfolio() {
-  return (
-    <div className="bg-neutral-100 min-h-screen text-gray-800 font-serif">
-      {/* Header */}
-      <header className="text-center py-10">
-        <h1 className="text-4xl font-bold tracking-wide">Your Name</h1>
-        <p className="text-lg mt-2 italic">Art & Literature Portfolio</p>
-      </header>
-
-      {/* Gallery Section */}
-      <section className="px-6 md:px-20 py-10">
-        <h2 className="text-2xl font-semibold mb-6">Art Gallery</h2>
-        <div className="grid md:grid-cols-2 gap-8">
-          {artworks.map((art, index) => (
-            <motion.div
-              key={index}
-              whileHover={{ scale: 1.03 }}
-              className="bg-white rounded-2xl shadow-md overflow-hidden"
-            >
-              <img src={art.image} alt={art.title} className="w-full h-64 object-cover" />
-              <div className="p-4">
-                <h3 className="text-lg font-medium">{art.title}</h3>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
-      {/* Writing Section */}
-      <section className="px-6 md:px-20 py-10 bg-white">
-        <h2 className="text-2xl font-semibold mb-6">Literary Works</h2>
-        <div className="space-y-6">
-          {writings.map((piece, index) => (
-            <motion.div
-              key={index}
-              whileHover={{ scale: 1.01 }}
-              className="p-6 border rounded-2xl shadow-sm"
-            >
-              <h3 className="text-xl font-semibold mb-2">{piece.title}</h3>
-              <p className="text-gray-600 italic">{piece.excerpt}</p>
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
-      {/* Contact Section */}
-      <section className="px-6 md:px-20 py-10 text-center">
-        <h2 className="text-2xl font-semibold mb-4">Commissions & Contact</h2>
-        <p className="mb-4">Interested in collaborating or commissioning a piece?</p>
-        <a
-          href="mailto:your@email.com"
-          className="inline-block px-6 py-3 bg-black text-white rounded-full"
-        >
-          Contact Me
-        </a>
-      </section>
-
-      {/* Footer */}
-      <footer className="text-center py-6 text-sm text-gray-500">
-        © {new Date().getFullYear()} Your Name. All rights reserved.
-      </footer>
+<section>
+  <h2>Art Gallery</h2>
+  <div class="gallery">
+    <div class="card">
+      <img src="https://via.placeholder.com/600x400?text=Artwork+1">
+      <div class="card-content">Sunset Reverie</div>
     </div>
-  );
-}
+    <div class="card">
+      <img src="https://via.placeholder.com/600x400?text=Artwork+2">
+      <div class="card-content">Silent Thoughts</div>
+    </div>
+    <div class="card">
+      <img src="https://via.placeholder.com/600x400?text=Artwork+3">
+      <div class="card-content">Golden Hour</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Literary Works</h2>
+  <div class="writing">
+    <h3>Fragments of Dawn</h3>
+    <p><i>A soft whisper of light breaks through the silence...</i></p>
+  </div>
+  <div class="writing">
+    <h3>Echoes Within</h3>
+    <p><i>In the quiet corners of the mind, stories unfold...</i></p>
+  </div>
+  <div class="writing">
+    <h3>The Space Between</h3>
+    <p><i>There exists a quiet space between what was and what will be...</i></p>
+  </div>
+</section>
+
+<section style="text-align:center;">
+  <h2>Commissions</h2>
+  <p>Interested in working with me?</p>
+  <a class="button" href="mailto:your@email.com">Contact Me</a>
+</section>
+
+<footer>
+  © 2026 arKAIve
+</footer>
+
+</body>
+</html>
