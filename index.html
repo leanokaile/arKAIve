@@ -4,32 +4,60 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>arKAIve</title>
+
 <style>
 body{margin:0;font-family:Georgia,serif;background:#f4f4f4;color:#222}
 header{text-align:center;padding:50px 20px}
 h1{font-size:42px;letter-spacing:2px}
 .container{max-width:1000px;margin:auto;padding:20px}
+
+/* HOME GRID */
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
-.card{background:white;border-radius:12px;padding:40px 20px;text-align:center;box-shadow:0 4px 10px rgba(0,0,0,.08);cursor:pointer}
+
+.card{
+background:white;border-radius:12px;padding:40px 20px;
+text-align:center;box-shadow:0 4px 10px rgba(0,0,0,.08);
+cursor:pointer;transition:.2s
+}
 .card:hover{transform:scale(1.03)}
+
+.subcard{
+background:#fff;border-radius:10px;padding:20px;
+margin:10px 0;box-shadow:0 2px 6px rgba(0,0,0,.08);
+cursor:pointer
+}
+
 .hidden{display:none}
+
+/* ART */
 .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
 .art-card{background:white;border-radius:12px;overflow:hidden;box-shadow:0 4px 10px rgba(0,0,0,.08);cursor:pointer}
 .art-card img{width:100%;height:200px;object-fit:cover}
 .art-card div{padding:10px}
+
+/* WRITING */
 .writing{background:white;padding:20px;border-radius:12px;margin-bottom:15px;box-shadow:0 2px 8px rgba(0,0,0,.05);cursor:pointer}
-button{margin-top:20px;padding:10px 20px;border:none;border-radius:20px;background:black;color:white;cursor:pointer}
 
 /* LIGHTBOX */
-#lightbox{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.9);display:none;align-items:center;justify-content:center;flex-direction:column}
+#lightbox{
+position:fixed;top:0;left:0;width:100%;height:100%;
+background:rgba(0,0,0,.9);
+display:none;align-items:center;justify-content:center;flex-direction:column
+}
 #lightbox img{max-width:90%;max-height:80%}
 #lightbox span{color:white;margin-top:10px}
 
-/* JOURNAL VIEW */
+/* JOURNAL */
 #journal{max-width:700px;margin:auto;background:white;padding:40px;border-radius:12px;line-height:1.6}
 #journal h2{text-align:center}
+
+button{
+margin-top:20px;padding:10px 20px;border:none;border-radius:20px;
+background:black;color:white;cursor:pointer
+}
 </style>
 </head>
+
 <body>
 
 <header>
@@ -42,72 +70,114 @@ button{margin-top:20px;padding:10px 20px;border:none;border-radius:20px;backgrou
 <!-- HOME -->
 <div id="home">
 <div class="grid">
-<div class="card" onclick="showSection('literary')"><h2>Literary</h2></div>
-<div class="card" onclick="showSection('art')"><h2>Art</h2></div>
+
+<div class="card" onclick="showSection('literaryMenu')">
+<h2>Literary</h2>
+<p>Essays & Poems</p>
+</div>
+
+<div class="card" onclick="showSection('artMenu')">
+<h2>Art</h2>
+<p>Drawings & Paintings</p>
+</div>
+
 </div>
 </div>
 
-<!-- LITERARY -->
-<div id="literary" class="hidden">
+<!-- LITERARY MENU -->
+<div id="literaryMenu" class="hidden">
 <h2>Literary</h2>
 
+<div class="subcard" onclick="showSection('essays')">
 <h3>Essays and Articles</h3>
+</div>
+
+<div class="subcard" onclick="showSection('poems')">
+<h3>Poems</h3>
+</div>
+
+<button onclick="goHome()">Back</button>
+</div>
+
+<!-- ESSAYS -->
+<div id="essays" class="hidden">
+<h2>Essays & Articles</h2>
+
 <div class="writing" onclick="openJournal('The Space Between','Full essay goes here...')">
 <h4>The Space Between</h4>
 <p><i>Preview...</i></p>
 </div>
 
-<h3>Poems: Long and Short</h3>
-<h4>Long Poems</h4>
-<div class="writing" onclick="openJournal('Crashlanding','The roadmaps in my head are\nall leading to your direction\nso i punched a hole on my tires\nand knocked my headlights\ncrashing and landi[...]')">
-<h4>Crashlanding</h4>
-<p><i>The roadmaps in my head...</i></p>
+<button onclick="showSection('literaryMenu')">Back</button>
 </div>
 
-<h4>Short Poems</h4>
-<div class="writing" onclick="openJournal('Untitled Poem','Your full poem goes here...')">
+<!-- POEMS -->
+<div id="poems" class="hidden">
+<h2>Poems</h2>
+
+<div class="writing" onclick="openJournal('Crashlanding','The roadmaps in my head are\nall leading to your direction\nso i punched a hole on my tires\nand knocked my headlights\ncrashing and landing...')">
+<h4>Crashlanding</h4>
+<p><i>Preview...</i></p>
+</div>
+
+<div class="writing" onclick="openJournal('Untitled Poem','Your poem goes here...')">
 <h4>Untitled Poem</h4>
 <p><i>Preview...</i></p>
 </div>
 
-<button onclick="goHome()">Back</button>
+<button onclick="showSection('literaryMenu')">Back</button>
 </div>
 
-<!-- ART -->
-<div id="art" class="hidden">
+<!-- ART MENU -->
+<div id="artMenu" class="hidden">
 <h2>Art</h2>
 
-<h3>Paintings</h3>
-<div class="gallery">
-<div class="art-card" onclick="openLightbox('https://imgur.com/a/I34RrRz.jpg','Acrylic Painting')">
-<img src="https://imgur.com/a/I34RrRz.jpg"><div>1st Division Painting Competition</div>
-</div>
-<div class="art-card" onclick="openLightbox('https://imgur.com/6RCfXGj.jpg','Acrylic Painting')">
-<img src="https://imgur.com/6RCfXGj.jpg"><div>A Birthday Gift to a Friend</div>
-</div>
-<div class="art-card" onclick="openLightbox('https://imgur.com/SL5ovnQ.jpg','Acrylic Painting')">
-<img src="https://imgur.com/SL5ovnQ.jpg"><div>On the Spot Painting</div>
-</div>
-<div class="art-card" onclick="openLightbox('https://imgur.com/mzxhnHI.jpg','Acrylic Painting')">
-<img src="https://imgur.com/mzxhnHI.jpg"><div>Landscape</div>
-</div>
+<div class="subcard" onclick="showSection('drawings')">
+<h3>Drawings</h3>
 </div>
 
-<h3>Drawings</h3>
-<div class="gallery">
-<!-- Add your drawings here -->
+<div class="subcard" onclick="showSection('paintings')">
+<h3>Paintings</h3>
 </div>
 
 <button onclick="goHome()">Back</button>
 </div>
 
-<!-- LIGHTBOX VIEW -->
+<!-- DRAWINGS -->
+<div id="drawings" class="hidden">
+<h2>Drawings</h2>
+<p>Add your drawings here.</p>
+<button onclick="showSection('artMenu')">Back</button>
+</div>
+
+<!-- PAINTINGS -->
+<div id="paintings" class="hidden">
+<h2>Paintings</h2>
+
+<div class="gallery">
+
+<div class="art-card" onclick="openLightbox('https://imgur.com/a/I34RrRz.jpg','Painting')">
+<img src="https://imgur.com/a/I34RrRz.jpg">
+<div>1st Division Painting Competition</div>
+</div>
+
+<div class="art-card" onclick="openLightbox('https://imgur.com/6RCfXGj.jpg','Painting')">
+<img src="https://imgur.com/6RCfXGj.jpg">
+<div>A Birthday Gift</div>
+</div>
+
+</div>
+
+<button onclick="showSection('artMenu')">Back</button>
+</div>
+
+<!-- LIGHTBOX -->
 <div id="lightbox" onclick="closeLightbox()">
 <img id="lightbox-img">
 <span id="lightbox-title"></span>
 </div>
 
-<!-- JOURNAL VIEW -->
+<!-- JOURNAL -->
 <div id="journalView" class="hidden">
 <div id="journal">
 <h2 id="journal-title"></h2>
@@ -120,11 +190,14 @@ button{margin-top:20px;padding:10px 20px;border:none;border-radius:20px;backgrou
 
 <script>
 function showSection(section){
-['home','literary','art','journalView'].forEach(id=>document.getElementById(id).classList.add('hidden'));
+document.querySelectorAll('#home,#literaryMenu,#artMenu,#essays,#poems,#drawings,#paintings,#journalView')
+.forEach(e=>e.classList.add('hidden'));
+
 document.getElementById(section).classList.remove('hidden');
 }
+
 function goHome(){
-['literary','art','journalView'].forEach(id=>document.getElementById(id).classList.add('hidden'));
+document.querySelectorAll('div').forEach(e=>e.classList.add('hidden'));
 document.getElementById('home').classList.remove('hidden');
 }
 
@@ -133,14 +206,20 @@ document.getElementById('lightbox').style.display='flex';
 document.getElementById('lightbox-img').src=src;
 document.getElementById('lightbox-title').innerText=title;
 }
-function closeLightbox(){document.getElementById('lightbox').style.display='none'}
+
+function closeLightbox(){
+document.getElementById('lightbox').style.display='none';
+}
 
 function openJournal(title,content){
 showSection('journalView');
 document.getElementById('journal-title').innerText=title;
 document.getElementById('journal-content').innerText=content;
 }
-function closeJournal(){showSection('literary')}
+
+function closeJournal(){
+showSection('poems');
+}
 </script>
 
 </body>
