@@ -6,54 +6,205 @@
 <title>arKAIve</title>
 
 <style>
-body{margin:0;font-family:Georgia,serif;background:#f4f4f4;color:#222}
-header{text-align:center;padding:50px 20px}
-h1{font-size:42px;letter-spacing:2px}
-.container{max-width:1000px;margin:auto;padding:20px}
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap');
 
-/* HOME GRID */
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
+body{
+margin:0;
+font-family:Inter, sans-serif;
+background: radial-gradient(circle at top, #f7f1e6, #ece3d3);
+color:#2b2b2b;
+overflow-x:hidden;
+}
+
+/* HEADER */
+header{
+text-align:center;
+padding:60px 20px 30px;
+}
+h1{
+font-family:'Playfair Display', serif;
+font-size:48px;
+letter-spacing:2px;
+margin:0;
+}
+header p{opacity:.7}
+
+/* CONTAINER */
+.container{
+max-width:1000px;
+margin:auto;
+padding:20px;
+}
+
+/* PAGE TRANSITIONS */
+.page{
+opacity:0;
+transform:translateY(20px);
+pointer-events:none;
+transition:all .6s ease;
+position:absolute;
+width:100%;
+left:0;
+}
+
+.page.active{
+opacity:1;
+transform:translateY(0);
+pointer-events:auto;
+position:relative;
+}
+
+/* HOME CARDS (MUSEUM ENTRANCE STYLE) */
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:30px;
+margin-top:40px;
+}
 
 .card{
-background:white;border-radius:12px;padding:40px 20px;
-text-align:center;box-shadow:0 4px 10px rgba(0,0,0,.08);
-cursor:pointer;transition:.2s
+background:rgba(255,255,255,.65);
+backdrop-filter:blur(10px);
+border:1px solid rgba(0,0,0,.08);
+border-radius:16px;
+padding:50px 20px;
+text-align:center;
+cursor:pointer;
+transition:.4s ease;
+box-shadow:0 10px 25px rgba(0,0,0,.08);
 }
-.card:hover{transform:scale(1.03)}
 
+.card:hover{
+transform:translateY(-8px) scale(1.02);
+box-shadow:0 20px 40px rgba(0,0,0,.12);
+}
+
+.card h2{
+font-family:'Playfair Display', serif;
+font-size:28px;
+margin:0;
+}
+
+.card p{opacity:.6;margin-top:10px}
+
+/* SUB MENU STYLE */
 .subcard{
-background:#fff;border-radius:10px;padding:20px;
-margin:10px 0;box-shadow:0 2px 6px rgba(0,0,0,.08);
-cursor:pointer
+background:rgba(255,255,255,.7);
+border-left:4px solid #c2a97a;
+padding:20px;
+margin:15px 0;
+border-radius:12px;
+cursor:pointer;
+transition:.3s;
 }
 
-.hidden{display:none}
-
-/* ART */
-.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
-.art-card{background:white;border-radius:12px;overflow:hidden;box-shadow:0 4px 10px rgba(0,0,0,.08);cursor:pointer}
-.art-card img{width:100%;height:200px;object-fit:cover}
-.art-card div{padding:10px}
+.subcard:hover{
+transform:translateX(8px);
+background:white;
+}
 
 /* WRITING */
-.writing{background:white;padding:20px;border-radius:12px;margin-bottom:15px;box-shadow:0 2px 8px rgba(0,0,0,.05);cursor:pointer}
+.writing{
+background:rgba(255,255,255,.8);
+padding:22px;
+border-radius:14px;
+margin-bottom:15px;
+box-shadow:0 6px 20px rgba(0,0,0,.06);
+cursor:pointer;
+transition:.3s;
+}
+
+.writing:hover{
+transform:scale(1.01);
+}
+
+/* ART GALLERY */
+.gallery{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+gap:20px;
+}
+
+.art-card{
+background:rgba(255,255,255,.85);
+border-radius:14px;
+overflow:hidden;
+box-shadow:0 8px 25px rgba(0,0,0,.08);
+cursor:pointer;
+transition:.4s;
+}
+
+.art-card:hover{
+transform:translateY(-6px);
+}
+
+.art-card img{
+width:100%;
+height:200px;
+object-fit:cover;
+}
+
+.art-card div{
+padding:12px;
+font-size:14px;
+opacity:.85;
+}
+
+/* BUTTON */
+button{
+margin-top:25px;
+padding:10px 22px;
+border:none;
+border-radius:999px;
+background:#2b2b2b;
+color:white;
+cursor:pointer;
+transition:.3s;
+}
+
+button:hover{
+background:#444;
+transform:scale(1.05);
+}
 
 /* LIGHTBOX */
 #lightbox{
-position:fixed;top:0;left:0;width:100%;height:100%;
-background:rgba(0,0,0,.9);
-display:none;align-items:center;justify-content:center;flex-direction:column
+position:fixed;
+top:0;left:0;
+width:100%;height:100%;
+background:rgba(0,0,0,.92);
+display:none;
+align-items:center;
+justify-content:center;
+flex-direction:column;
 }
-#lightbox img{max-width:90%;max-height:80%}
-#lightbox span{color:white;margin-top:10px}
+
+#lightbox img{
+max-width:90%;
+max-height:80%;
+border-radius:10px;
+}
+
+#lightbox span{
+color:white;
+margin-top:10px;
+font-family:'Playfair Display', serif;
+}
 
 /* JOURNAL */
-#journal{max-width:700px;margin:auto;background:white;padding:40px;border-radius:12px;line-height:1.6}
-#journal h2{text-align:center}
+#journal{
+max-width:750px;
+margin:auto;
+background:rgba(255,255,255,.85);
+padding:40px;
+border-radius:16px;
+line-height:1.7;
+box-shadow:0 10px 30px rgba(0,0,0,.1);
+}
 
-button{
-margin-top:20px;padding:10px 20px;border:none;border-radius:20px;
-background:black;color:white;cursor:pointer
+#journal h2{
+text-align:center;
+font-family:'Playfair Display', serif;
 }
 </style>
 </head>
@@ -62,21 +213,21 @@ background:black;color:white;cursor:pointer
 
 <header>
 <h1>arKAIve</h1>
-<p><i>Art & Literary Portfolio</i></p>
+<p><i>A Digital Museum of Memory, Art & Writing</i></p>
 </header>
 
 <div class="container">
 
 <!-- HOME -->
-<div id="home">
+<div id="home" class="page active">
 <div class="grid">
 
-<div class="card" onclick="showSection('literaryMenu')">
+<div class="card" onclick="showPage('literaryMenu')">
 <h2>Literary</h2>
 <p>Essays & Poems</p>
 </div>
 
-<div class="card" onclick="showSection('artMenu')">
+<div class="card" onclick="showPage('artMenu')">
 <h2>Art</h2>
 <p>Drawings & Paintings</p>
 </div>
@@ -85,90 +236,90 @@ background:black;color:white;cursor:pointer
 </div>
 
 <!-- LITERARY MENU -->
-<div id="literaryMenu" class="hidden">
-<h2>Literary</h2>
+<div id="literaryMenu" class="page">
+<h2>Literary Wing</h2>
 
-<div class="subcard" onclick="showSection('essays')">
-<h3>Essays and Articles</h3>
+<div class="subcard" onclick="showPage('essays')">
+Essays & Articles
 </div>
 
-<div class="subcard" onclick="showSection('poems')">
-<h3>Poems</h3>
+<div class="subcard" onclick="showPage('poems')">
+Poetry Collection
 </div>
 
-<button onclick="goHome()">Back</button>
+<button onclick="goHome()">Return to Lobby</button>
 </div>
 
 <!-- ESSAYS -->
-<div id="essays" class="hidden">
+<div id="essays" class="page">
 <h2>Essays & Articles</h2>
 
 <div class="writing" onclick="openJournal('The Space Between','Full essay goes here...')">
-<h4>The Space Between</h4>
-<p><i>Preview...</i></p>
+<h3>The Space Between</h3>
+<p><i>Preview excerpt...</i></p>
 </div>
 
-<button onclick="showSection('literaryMenu')">Back</button>
+<button onclick="showPage('literaryMenu')">Back</button>
 </div>
 
 <!-- POEMS -->
-<div id="poems" class="hidden">
-<h2>Poems</h2>
+<div id="poems" class="page">
+<h2>Poetry Collection</h2>
 
-<div class="writing" onclick="openJournal('Crashlanding','The roadmaps in my head are\nall leading to your direction\nso i punched a hole on my tires\nand knocked my headlights\ncrashing and landing...')">
-<h4>Crashlanding</h4>
-<p><i>Preview...</i></p>
+<div class="writing" onclick="openJournal('Crashlanding','The roadmaps in my head are\nall leading to your direction...')">
+<h3>Crashlanding</h3>
+<p><i>Preview excerpt...</i></p>
 </div>
 
-<div class="writing" onclick="openJournal('Untitled Poem','Your poem goes here...')">
-<h4>Untitled Poem</h4>
-<p><i>Preview...</i></p>
+<div class="writing" onclick="openJournal('Untitled','Your poem goes here...')">
+<h3>Untitled</h3>
+<p><i>Preview excerpt...</i></p>
 </div>
 
-<button onclick="showSection('literaryMenu')">Back</button>
+<button onclick="showPage('literaryMenu')">Back</button>
 </div>
 
 <!-- ART MENU -->
-<div id="artMenu" class="hidden">
-<h2>Art</h2>
+<div id="artMenu" class="page">
+<h2>Art Wing</h2>
 
-<div class="subcard" onclick="showSection('drawings')">
-<h3>Drawings</h3>
+<div class="subcard" onclick="showPage('drawings')">
+Drawings
 </div>
 
-<div class="subcard" onclick="showSection('paintings')">
-<h3>Paintings</h3>
+<div class="subcard" onclick="showPage('paintings')">
+Paintings
 </div>
 
-<button onclick="goHome()">Back</button>
+<button onclick="goHome()">Return to Lobby</button>
 </div>
 
 <!-- DRAWINGS -->
-<div id="drawings" class="hidden">
-<h2>Drawings</h2>
-<p>Add your drawings here.</p>
-<button onclick="showSection('artMenu')">Back</button>
+<div id="drawings" class="page">
+<h2>Drawings Archive</h2>
+<p style="opacity:.7">Your drawings will live here like sketches in a gallery drawer.</p>
+<button onclick="showPage('artMenu')">Back</button>
 </div>
 
 <!-- PAINTINGS -->
-<div id="paintings" class="hidden">
-<h2>Paintings</h2>
+<div id="paintings" class="page">
+<h2>Paintings Gallery</h2>
 
 <div class="gallery">
-
-<div class="art-card" onclick="openLightbox('https://imgur.com/a/I34RrRz.jpg','Painting')">
-<img src="https://imgur.com/a/I34RrRz.jpg">
-<div>1st Division Painting Competition</div>
-</div>
 
 <div class="art-card" onclick="openLightbox('https://imgur.com/6RCfXGj.jpg','Painting')">
 <img src="https://imgur.com/6RCfXGj.jpg">
 <div>A Birthday Gift</div>
 </div>
 
+<div class="art-card" onclick="openLightbox('https://imgur.com/mzxhnHI.jpg','Painting')">
+<img src="https://imgur.com/mzxhnHI.jpg">
+<div>Landscape Study</div>
 </div>
 
-<button onclick="showSection('artMenu')">Back</button>
+</div>
+
+<button onclick="showPage('artMenu')">Back</button>
 </div>
 
 <!-- LIGHTBOX -->
@@ -178,27 +329,26 @@ background:black;color:white;cursor:pointer
 </div>
 
 <!-- JOURNAL -->
-<div id="journalView" class="hidden">
+<div id="journalView" class="page">
 <div id="journal">
 <h2 id="journal-title"></h2>
 <p id="journal-content"></p>
-<button onclick="closeJournal()">Back</button>
+<button onclick="closeJournal()">Return</button>
 </div>
 </div>
 
 </div>
 
 <script>
-function showSection(section){
-document.querySelectorAll('#home,#literaryMenu,#artMenu,#essays,#poems,#drawings,#paintings,#journalView')
-.forEach(e=>e.classList.add('hidden'));
-
-document.getElementById(section).classList.remove('hidden');
+function showPage(id){
+document.querySelectorAll('.page').forEach(p=>{
+p.classList.remove('active');
+});
+document.getElementById(id).classList.add('active');
 }
 
 function goHome(){
-document.querySelectorAll('div').forEach(e=>e.classList.add('hidden'));
-document.getElementById('home').classList.remove('hidden');
+showPage('home');
 }
 
 function openLightbox(src,title){
@@ -212,13 +362,13 @@ document.getElementById('lightbox').style.display='none';
 }
 
 function openJournal(title,content){
-showSection('journalView');
+showPage('journalView');
 document.getElementById('journal-title').innerText=title;
 document.getElementById('journal-content').innerText=content;
 }
 
 function closeJournal(){
-showSection('poems');
+showPage('poems');
 }
 </script>
 
