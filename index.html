@@ -42,31 +42,32 @@ button{margin-top:20px;padding:10px 20px;border:none;border-radius:20px;backgrou
 <!-- HOME -->
 <div id="home">
 <div class="grid">
-<div class="card" onclick="showSection('literary')"><h2>Literary Works</h2></div>
-<div class="card" onclick="showSection('art')"><h2>Art Works</h2></div>
+<div class="card" onclick="showSection('literary')"><h2>Literary</h2></div>
+<div class="card" onclick="showSection('art')"><h2>Art</h2></div>
 </div>
 </div>
 
 <!-- LITERARY -->
 <div id="literary" class="hidden">
-<h2>Literary Works</h2>
+<h2>Literary</h2>
 
-<h3>Essays / Articles</h3>
+<h3>Essays and Articles</h3>
 <div class="writing" onclick="openJournal('The Space Between','Full essay goes here...')">
 <h4>The Space Between</h4>
 <p><i>Preview...</i></p>
 </div>
 
-<h3>Poetry</h3>
+<h3>Poems: Long and Short</h3>
+<h4>Long Poems</h4>
+<div class="writing" onclick="openJournal('Crashlanding','The roadmaps in my head are\nall leading to your direction\nso i punched a hole on my tires\nand knocked my headlights\ncrashing and landi[...]')">
+<h4>Crashlanding</h4>
+<p><i>The roadmaps in my head...</i></p>
+</div>
+
+<h4>Short Poems</h4>
 <div class="writing" onclick="openJournal('Untitled Poem','Your full poem goes here...')">
 <h4>Untitled Poem</h4>
 <p><i>Preview...</i></p>
-</div>
-
-<h3>Poetry</h3>
-<div class="writing" onclick="openJournal('Crashlanding','The roadmaps in my head are\nall leading to your direction\nso i punched a hole on my tires\nand knocked my headlights\ncrashing and landing once more\nthat way, my back would hurt\nmore than my heart. ')">
-<h4>Crashlanding</h4>
-<p><i>The roadmaps in my head...</i></p>
 </div>
 
 <button onclick="goHome()">Back</button>
@@ -74,34 +75,27 @@ button{margin-top:20px;padding:10px 20px;border:none;border-radius:20px;backgrou
 
 <!-- ART -->
 <div id="art" class="hidden">
-<h2>Art Works</h2>
+<h2>Art</h2>
 
-<h3>1st Divison Painting Competition</h3>
+<h3>Paintings</h3>
 <div class="gallery">
 <div class="art-card" onclick="openLightbox('https://imgur.com/a/I34RrRz.jpg','Acrylic Painting')">
-<img src="https://imgur.com/a/I34RrRz.jpg"><div>Acrylic Painting</div>
+<img src="https://imgur.com/a/I34RrRz.jpg"><div>1st Division Painting Competition</div>
 </div>
-</div>
-
-<h3>A Birthday Gift to a Friend</h3>
-<div class="gallery">
 <div class="art-card" onclick="openLightbox('https://imgur.com/6RCfXGj.jpg','Acrylic Painting')">
-<img src="https://imgur.com/6RCfXGj.jpg"><div>Acrylic Painting</div>
+<img src="https://imgur.com/6RCfXGj.jpg"><div>A Birthday Gift to a Friend</div>
 </div>
-</div>
-
-<h3>On the Spot Painting</h3>
-<div class="gallery">
 <div class="art-card" onclick="openLightbox('https://imgur.com/SL5ovnQ.jpg','Acrylic Painting')">
-<img src="https://imgur.com/SL5ovnQ.jpg"><div>Acrylic Painting</div>
+<img src="https://imgur.com/SL5ovnQ.jpg"><div>On the Spot Painting</div>
+</div>
+<div class="art-card" onclick="openLightbox('https://imgur.com/mzxhnHI.jpg','Acrylic Painting')">
+<img src="https://imgur.com/mzxhnHI.jpg"><div>Landscape</div>
 </div>
 </div>
 
-<h3>Lanscape</h3>
+<h3>Drawings</h3>
 <div class="gallery">
-<div class="art-card" onclick="openLightbox('https://imgur.com/mzxhnHI.jpg','Acrylic Painting')">
-<img src="https://imgur.com/mzxhnHI.jpg"><div>Acrylic Painting</div>
-</div>
+<!-- Add your drawings here -->
 </div>
 
 <button onclick="goHome()">Back</button>
