@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crashlanding</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400&display=swap');
+
+body{
+margin:0;
+font-family:Inter, sans-serif;
+background: radial-gradient(circle at top, #f7f1e6, #e8dcc8);
+color:#2b2b2b;
+overflow-x:hidden;
+}
+
+/* FADE IN */
+body{
+opacity:0;
+animation:fadeIn 1.2s ease forwards;
+}
+
+@keyframes fadeIn{
+from{opacity:0; transform:translateY(30px);}
+to{opacity:1; transform:translateY(0);}
+}
+
+/* CONTAINER */
+.container{
+max-width:900px;
+margin:auto;
+padding:80px 20px;
+text-align:center;
+}
+
+/* BACK */
+.back{
+position:absolute;
+top:30px;
+left:30px;
+text-decoration:none;
+font-size:14px;
+color:#2b2b2b;
+border-bottom:1px solid rgba(0,0,0,.3);
+transition:.3s;
+}
+
+.back:hover{
+opacity:.6;
+}
+
+/* TITLE FLOAT */
+.title-box{
+margin-bottom:60px;
+animation:float 6s ease-in-out infinite;
+}
+
+@keyframes float{
+0%,100%{transform:translateY(0);}
+50%{transform:translateY(-8px);}
+}
+
+.title-box h1{
+font-family:'Playfair Display', serif;
+font-size:40px;
+margin:0;
+}
+
+.meta{
+font-size:13px;
+opacity:.6;
+margin-top:8px;
+}
+
+/* POEM DISPLAY */
+.poem{
+display:inline-block;
+text-align:left;
+background:rgba(255,255,255,.6);
+backdrop-filter:blur(8px);
+padding:50px 60px;
+border-radius:18px;
+box-shadow:0 15px 40px rgba(0,0,0,.1);
+font-family:'Playfair Display', serif;
+font-size:20px;
+line-height:2.1;
+white-space:pre-wrap;
+animation:fadePoem 1.5s ease;
+}
+
+/* POEM FADE */
+@keyframes fadePoem{
+from{opacity:0;}
+to{opacity:1;}
+}
+
+/* FOOTER */
+.footer{
+margin-top:50px;
+font-size:12px;
+opacity:.5;
+}
+</style>
+</head>
+
+<body>
+
+<a class="back" href="index.html">← Return</a>
+
+<div class="container">
+
+<!-- TITLE -->
+<div class="title-box">
+<h1>Crashlanding</h1>
+<div class="meta">Poetry • arKAIve Collection</div>
+</div>
+
+<!-- POEM -->
+<div class="poem">
+The roadmaps in my head are  
+all leading to your direction  
+
+so I punched a hole in my tires  
+and dimmed my headlights  
+
+crashing and landing  
+somewhere between  
+wanting and staying
+</div>
+
+<div class="footer">
+arKAIve • Poetry Exhibit
+</div>
+
+</div>
+
+</body>
+</html>
