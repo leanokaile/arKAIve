@@ -1,117 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>arKAIve</title>
-  <style>
-    body { margin:0; font-family: Georgia, serif; background:#f4f4f4; color:#222; }
-    header { text-align:center; padding:50px 20px; }
-    h1 { font-size:42px; letter-spacing:2px; }
-    .container { max-width:1000px; margin:auto; padding:20px; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>arKAIve</title>
+<style>
+body{margin:0;font-family:Georgia,serif;background:#f4f4f4;color:#222}
+header{text-align:center;padding:50px 20px}
+h1{font-size:42px;letter-spacing:2px}
+.container{max-width:1000px;margin:auto;padding:20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
+.card{background:white;border-radius:12px;padding:40px 20px;text-align:center;box-shadow:0 4px 10px rgba(0,0,0,.08);cursor:pointer}
+.card:hover{transform:scale(1.03)}
+.hidden{display:none}
+.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
+.art-card{background:white;border-radius:12px;overflow:hidden;box-shadow:0 4px 10px rgba(0,0,0,.08);cursor:pointer}
+.art-card img{width:100%;height:200px;object-fit:cover}
+.art-card div{padding:10px}
+.writing{background:white;padding:20px;border-radius:12px;margin-bottom:15px;box-shadow:0 2px 8px rgba(0,0,0,.05);cursor:pointer}
+button{margin-top:20px;padding:10px 20px;border:none;border-radius:20px;background:black;color:white;cursor:pointer}
 
-    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px; }
+/* LIGHTBOX */
+#lightbox{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.9);display:none;align-items:center;justify-content:center;flex-direction:column}
+#lightbox img{max-width:90%;max-height:80%}
+#lightbox span{color:white;margin-top:10px}
 
-    .card {
-      background:white; border-radius:12px; padding:40px 20px; text-align:center;
-      box-shadow:0 4px 10px rgba(0,0,0,0.08); cursor:pointer; transition:0.2s;
-    }
-    .card:hover { transform:scale(1.03); }
-
-    .hidden { display:none; }
-
-    .gallery { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px; }
-    .art-card { background:white; border-radius:12px; overflow:hidden; box-shadow:0 4px 10px rgba(0,0,0,0.08); }
-    .art-card img { width:100%; height:200px; object-fit:cover; }
-    .art-card div { padding:10px; }
-
-    .writing { background:white; padding:20px; border-radius:12px; margin-bottom:15px; box-shadow:0 2px 8px rgba(0,0,0,0.05); }
-
-    button { margin-top:20px; padding:10px 20px; border:none; border-radius:20px; background:black; color:white; cursor:pointer; }
-  </style>
+/* JOURNAL VIEW */
+#journal{max-width:700px;margin:auto;background:white;padding:40px;border-radius:12px;line-height:1.6}
+#journal h2{text-align:center}
+</style>
 </head>
 <body>
 
 <header>
-  <h1>arKAIve</h1>
-  <p><i>Art & Literary Portfolio</i></p>
+<h1>arKAIve</h1>
+<p><i>Art & Literary Portfolio</i></p>
 </header>
 
 <div class="container">
 
-  <!-- HOME -->
-  <div id="home">
-    <div class="grid">
-      <div class="card" onclick="showSection('literary')">
-        <h2>Literary Works</h2>
-      </div>
-      <div class="card" onclick="showSection('art')">
-        <h2>Art Works</h2>
-      </div>
-    </div>
-  </div>
+<!-- HOME -->
+<div id="home">
+<div class="grid">
+<div class="card" onclick="showSection('literary')"><h2>Literary Works</h2></div>
+<div class="card" onclick="showSection('art')"><h2>Art Works</h2></div>
+</div>
+</div>
 
-  <!-- LITERARY -->
-  <div id="literary" class="hidden">
-    <h2>Literary Works</h2>
+<!-- LITERARY -->
+<div id="literary" class="hidden">
+<h2>Literary Works</h2>
 
-    <h3>Essays / Articles</h3>
-    <div class="writing">
-      <h4>Untitled Essay</h4>
-      <p><i>Your essay preview goes here...</i></p>
-    </div>
+<h3>Essays / Articles</h3>
+<div class="writing" onclick="openJournal('The Space Between','Full essay goes here...')">
+<h4>The Space Between</h4>
+<p><i>Preview...</i></p>
+</div>
 
-    <h3>Poetry</h3>
-    <div class="writing">
-      <h4>Untitled Poem</h4>
-      <p><i>Your poem preview goes here...</i></p>
-    </div>
+<h3>Poetry</h3>
+<div class="writing" onclick="openJournal('Untitled Poem','Your full poem goes here...')">
+<h4>Untitled Poem</h4>
+<p><i>Preview...</i></p>
+</div>
 
-    <button onclick="goHome()">Back</button>
-  </div>
+<button onclick="goHome()">Back</button>
+</div>
 
-  <!-- ART -->
-  <div id="art" class="hidden">
-    <h2>Art Works</h2>
+<!-- ART -->
+<div id="art" class="hidden">
+<h2>Art Works</h2>
 
-    <h3>Charcoal</h3>
-    <div class="gallery">
-      <div class="art-card"><img src="https://via.placeholder.com/600x400?text=Charcoal+1"><div>Charcoal Study</div></div>
-    </div>
+<h3>Charcoal</h3>
+<div class="gallery">
+<div class="art-card" onclick="openLightbox('https://via.placeholder.com/800x600?text=Charcoal+1','Charcoal Study')">
+<img src="https://via.placeholder.com/600x400?text=Charcoal+1"><div>Charcoal Study</div>
+</div>
+</div>
 
-    <h3>Graphite</h3>
-    <div class="gallery">
-      <div class="art-card"><img src="https://via.placeholder.com/600x400?text=Graphite+1"><div>Graphite Sketch</div></div>
-    </div>
+<h3>Graphite</h3>
+<div class="gallery">
+<div class="art-card" onclick="openLightbox('https://via.placeholder.com/800x600?text=Graphite+1','Graphite Sketch')">
+<img src="https://via.placeholder.com/600x400?text=Graphite+1"><div>Graphite Sketch</div>
+</div>
+</div>
 
-    <h3>Watercolor</h3>
-    <div class="gallery">
-      <div class="art-card"><img src="https://via.placeholder.com/600x400?text=Watercolor+1"><div>Watercolor Piece</div></div>
-    </div>
+<h3>Watercolor</h3>
+<div class="gallery">
+<div class="art-card" onclick="openLightbox('https://via.placeholder.com/800x600?text=Watercolor+1','Watercolor Piece')">
+<img src="https://via.placeholder.com/600x400?text=Watercolor+1"><div>Watercolor Piece</div>
+</div>
+</div>
 
-    <h3>Acrylic</h3>
-    <div class="gallery">
-      <div class="art-card"><img src="https://via.placeholder.com/600x400?text=Acrylic+1"><div>Acrylic Painting</div></div>
-    </div>
+<h3>Acrylic</h3>
+<div class="gallery">
+<div class="art-card" onclick="openLightbox('https://via.placeholder.com/800x600?text=Acrylic+1','Acrylic Painting')">
+<img src="https://via.placeholder.com/600x400?text=Acrylic+1"><div>Acrylic Painting</div>
+</div>
+</div>
 
-    <button onclick="goHome()">Back</button>
-  </div>
+<button onclick="goHome()">Back</button>
+</div>
+
+<!-- LIGHTBOX VIEW -->
+<div id="lightbox" onclick="closeLightbox()">
+<img id="lightbox-img">
+<span id="lightbox-title"></span>
+</div>
+
+<!-- JOURNAL VIEW -->
+<div id="journalView" class="hidden">
+<div id="journal">
+<h2 id="journal-title"></h2>
+<p id="journal-content"></p>
+<button onclick="closeJournal()">Back</button>
+</div>
+</div>
 
 </div>
 
 <script>
-  function showSection(section) {
-    document.getElementById('home').classList.add('hidden');
-    document.getElementById('literary').classList.add('hidden');
-    document.getElementById('art').classList.add('hidden');
-    document.getElementById(section).classList.remove('hidden');
-  }
+function showSection(section){
+['home','literary','art','journalView'].forEach(id=>document.getElementById(id).classList.add('hidden'));
+document.getElementById(section).classList.remove('hidden');
+}
+function goHome(){
+['literary','art','journalView'].forEach(id=>document.getElementById(id).classList.add('hidden'));
+document.getElementById('home').classList.remove('hidden');
+}
 
-  function goHome() {
-    document.getElementById('home').classList.remove('hidden');
-    document.getElementById('literary').classList.add('hidden');
-    document.getElementById('art').classList.add('hidden');
-  }
+function openLightbox(src,title){
+document.getElementById('lightbox').style.display='flex';
+document.getElementById('lightbox-img').src=src;
+document.getElementById('lightbox-title').innerText=title;
+}
+function closeLightbox(){document.getElementById('lightbox').style.display='none'}
+
+function openJournal(title,content){
+showSection('journalView');
+document.getElementById('journal-title').innerText=title;
+document.getElementById('journal-content').innerText=content;
+}
+function closeJournal(){showSection('literary')}
 </script>
 
 </body>
