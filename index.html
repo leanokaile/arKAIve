@@ -1,5 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>arKAIve</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap');
+
+body{
+margin:0;
+font-family:Inter, sans-serif;
+background: radial-gradient(circle at top, #f7f1e6, #ece3d3);
+color:#2b2b2b;
+overflow-x:hidden;
+}
+
+/* HEADER */
+header{
+text-align:center;
+padding:60px 20px 30px;
+}
+h1{
+font-family:'Playfair Display', serif;
+font-size:48px;
+letter-spacing:2px;
+margin:0;
+}
+header p{opacity:.7}
+
+/* CONTAINER */
+.container{
+max-width:1000px;
+margin:auto;
+padding:20px;
+}
+
+/* PAGE TRANSITIONS */
+.page{
+opacity:0;
+transform:translateY(20px);
+pointer-events:none;
+transition:all .6s ease;
+position:absolute;
+width:100%;
+left:0;
+}
+
+.page.active{
+opacity:1;
+transform:translateY(0);
+pointer-events:auto;
+position:relative;
+}
+
+/* HOME CARDS (MUSEUM ENTRANCE STYLE) */
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:30px;
+margin-top:40px;
+}
+
+.card{
+background:rgba(255,255,255,.65);
+backdrop-filter:blur(10px);
+border:1px solid rgba(0,0,0,.08);
+border-radius:16px;
+padding:50px 20px;
+text-align:center;
+cursor:pointer;
+transition:.4s ease;
+box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
+
+.card:hover{
+transform:translateY(-8px) scale(1.02);
+box-shadow:0 20px 40px rgba(0,0,0,.12);
+}
+
+.card h2{
+font-family:'Playfair Display', serif;
+font-size:28px;
+margin:0;
+}
+
+.card p{opacity:.6;margin-top:10px}
+
+/* SUB MENU STYLE */
+.subcard{
+background:rgba(255,255,255,.7);
+border-left:4px solid #c2a97a;
+padding:20px;
+margin:15px 0;
+border-radius:12px;
+cursor:pointer;
+transition:.3s;
+}
+
+.subcard:hover{
+transform:translateX(8px);
+background:white;
+}
+
+/* WRITING */
+.writing{
+background:rgba(255,255,255,.8);
+padding:22px;
+border-radius:14px;
+margin-bottom:15px;
+box-shadow:0 6px 20px rgba(0,0,0,.06);
+cursor:pointer;
+transition:.3s;
+}
+
+.writing:hover{
+transform:scale(1.01);
+}
+
+/* ART GALLERY */
+.gallery{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+gap:20px;
+}
+
+.art-card{
+background:rgba(255,255,255,.85);
+border-radius:14px;
+overflow:hidden;
+box-shadow:0 8px 25px rgba(0,0,0,.08);
+cursor:pointer;
+transition:.4s;
+}
+
+.art-card:hover{
+transform:translateY(-6px);
+}
+
+.art-card img{
+width:100%;
+height:200px;
+object-fit:cover;
+}
+
+.art-card div{
+padding:12px;
+font-size:14px;
+opacity:.85;
+}
+
+/* BUTTON */
+button{
+margin-top:25px;
+padding:10px 22px;
+border:none;
+border-radius:999px;
+background:#2b2b2b;
+color:white;
+cursor:pointer;
+transition:.3s;
+}
+
+button:hover{
+background:#444;
+transform:scale(1.05);
+}
+
+/* LIGHTBOX */
+#lightbox{
+position:fixed;
+top:0;left:0;
+width:100%;height:100%;
+background:rgba(0,0,0,.92);
+display:none;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+}
+
+#lightbox img{
+max-width:90%;
+max-height:80%;
+border-radius:10px;
+}
+
+#lightbox span{
+color:white;
+margin-top:10px;
+font-family:'Playfair Display', serif;
+}
+
+/* JOURNAL */
+#journal{
+max-width:750px;
+margin:auto;
+background:rgba(255,255,255,.85);
+padding:40px;
+border-radius:16px;
+line-height:1.7;
+box-shadow:0 10px 30px rgba(0,0,0,.1);
+}
+
+#journal h2{
+text-align:center;
+font-family:'Playfair Display', serif;
+}
+
+/* === MUSEUM ATMOSPHERE UPGRADE === */
+
+/* subtle grain overlay */
+body::after{
+content:"";
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:radial-gradient(rgba(0,0,0,.03) 1px, transparent 1px);
+background-size:4px 4px;
+pointer-events:none;
+opacity:.4;
+}
+
+/* header enhancement */
+header{
+position:relative;
+}
+
+header::after{
+content:"";
+display:block;
+width:120px;
+height:2px;
+background:#c2a97a;
+margin:15px auto 0;
+opacity:.6;
+}
+
+/* section titles like museum plaques */
+h2{
+font-family:'Playfair Display', serif;
+letter-spacing:1px;
+position:relative;
+margin-bottom:20px;
+}
+
+h2::after{
+content:"";
+display:block;
+width:60px;
+height:2px;
+background:#c2a97a;
+margin-top:8px;
+opacity:.5;
+}
+
+/* SUBCARDS → look like exhibit labels */
+.subcard{
+position:relative;
+overflow:hidden;
+}
+
+.subcard::before{
+content:"Exhibit";
+position:absolute;
+top:8px;
+right:12px;
+font-size:10px;
+letter-spacing:1px;
+opacity:.4;
+}
+
+/* WRITING → journal cards */
+.writing{
+border-left:3px solid #c2a97a;
+position:relative;
+}
+
+.writing::after{
+content:"TEXT";
+position:absolute;
+top:10px;
+right:15px;
+font-size:10px;
+opacity:.3;
+letter-spacing:1px;
+}
+
+/* ART CARDS → museum frames */
+.art-card{
+background:#fff;
+padding:8px;
+border:1px solid rgba(0,0,0,.1);
+}
+
+.art-card img{
+border-radius:6px;
+}
+
+/* caption styling */
+.art-card div{
+font-family:'Playfair Display', serif;
+font-size:13px;
+text-align:center;
+}
+
+/* hover = spotlight effect */
+.art-card:hover{
+transform:translateY(-6px) scale(1.02);
+box-shadow:0 20px 40px rgba(0,0,0,.2);
+}
+
+/* LIGHTBOX → more cinematic */
+#lightbox{
+background:radial-gradient(circle at center, rgba(0,0,0,.85), black);
+}
+
+#lightbox span{
+font-size:18px;
+letter-spacing:1px;
+opacity:.9;
+}
+
+/* ABOUT PAGE polish */
+.about-hero{
+text-align:center;
+margin-bottom:40px;
+}
+
+.about-hero h1{
+font-size:54px;
+letter-spacing:6px;
+position:relative;
+}
+
+.about-hero h1::after{
+content:"THE ARCHIVE WITHIN";
+position:absolute;
+left:0;
+top:0;
+width:100%;
+color:transparent;
+-webkit-text-stroke:1px rgba(0,0,0,.15);
+transform:translate(3px,3px);
+}
+
+/* ABOUT GRID */
+.about-maximal{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:30px;
+}
+
+/* ABOUT CARDS → exhibit panels */
+.about-card{
+background:linear-gradient(135deg, rgba(255,255,255,.9), rgba(255,255,255,.6));
+padding:30px;
+border-radius:18px;
+box-shadow:
+0 10px 30px rgba(0,0,0,.1),
+inset 0 0 20px rgba(255,255,255,.5);
+position:relative;
+}
+
+/* decorative corners */
+.about-card::before{
+content:"";
+position:absolute;
+top:10px;
+right:10px;
+width:50px;
+height:50px;
+border-top:2px solid #c2a97a;
+border-right:2px solid #c2a97a;
+opacity:.5;
+}
+
+.about-card::after{
+content:"";
+position:absolute;
+bottom:10px;
+left:10px;
+width:50px;
+height:50px;
+border-bottom:2px solid #c2a97a;
+border-left:2px solid #c2a97a;
+opacity:.5;
+}
+
+/* CONTACT ROW */
+.contact-row{
+display:flex;
+gap:10px;
+margin:10px 0;
+align-items:center;
+}
+
+.contact-row a{
+text-decoration:none;
+color:#2b2b2b;
+border-bottom:1px solid rgba(0,0,0,.3);
+}
+
+.contact-row a:hover{
+opacity:.6;
+border-bottom:1px solid #c2a97a;
+}
+
+/* PRICING polish */
+.price-card{
+position:relative;
+}
+
+.price-card::after{
+content:"ARCHIVE";
+position:absolute;
+top:10px;
+right:10px;
+font-size:9px;
+opacity:.3;
+letter-spacing:2px;
+}
+
+/* FORM FRAME */
+.form-shell{
+border:1px solid rgba(0,0,0,.1);
+background:linear-gradient(145deg, #fff, #f3efe6);
+padding:15px;
+border-radius:12px;
+}
+
+/* RESPONSIVE */
+@media(max-width:800px){
+.about-maximal{
+grid-template-columns:1fr;
+}
+}
+  
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>arKAIve</h1>
+<p><i>A Digital Museum of Memory, Art & Writing</i></p>
+</header>
+
+<div class="container">
+
+<!-- HOME -->
+<div id="home" class="page active">
+<div class="grid">
+
+<div class="card" onclick="showPage('literaryMenu')">
+<h2>Literary</h2>
+<p>Essays & Poems</p>
+</div>
+
+<div class="card" onclick="showPage('artMenu')">
+<h2>Art</h2>
+<p>Drawings & Paintings</p>
+</div>
+
+<div class="card" onclick="showPage('aboutMenu')">
+<h2>About</h2>
+<p>The Artist / Author</p>
+</div>
+  
+</div>
+
+</div>
+
+<!-- LITERARY MENU -->
+<div id="literaryMenu" class="page">
+<h2>Literary Wing</h2>
+
+<div class="subcard" onclick="showPage('essays')">
+Essays & Articles
+</div>
+
+<div class="subcard" onclick="showPage('poems')">
+Poetry Collection
+</div>
+
+<button onclick="goHome()">Return to Lobby</button>
+</div>
+
+<!-- ESSAYS -->
+<div id="essays" class="page">
+<h2>Essays & Articles</h2>
+
+<div class="writing" onclick="location.href='essay-a-legacy-unatoned.html'">
+<h3>A Legacy Unatoned</h3>
+<p><i>Open exhibit →</i></p>
+</div>
+
+<div class="writing" onclick="location.href='essay-so-be-it.html'">
+<h3>SO BE IT.</h3>
+<p><i>Open exhibit →</i></p>
+</div>
+
+<div class="writing" onclick="location.href='essay-feature.html'">
+<h3>Cracks on the UniTeam's Sandglass: Why Now?</h3>
+<p><i>Open exhibit →</i></p>
+</div>
+
+<div class="writing" onclick="location.href='essay-globalization.html'">
+<h3>Globalization: A National Breakthrough</h3>
+<p><i>Open exhibit →</i></p>
+</div>
+
+<div class="writing" onclick="location.href='essay-maguindanao.html'">
+<h3>Hoarse and defiant voices: forever undeterred.</h3>
+<p><i>Open exhibit →</i></p>
+</div>  
+  
+<button onclick="showPage('literaryMenu')">Back</button>
+</div>
+
+<!-- POEMS -->
+<div id="poems" class="page">
+<h2>Poetry Collection</h2>
+
+<div class="writing" onclick="location.href='poetry-crimson.html'">
+<h3>Crimson</h3>
+<p><i>Open exhibit →</i></p>
+</div>
+
+<div class="writing" onclick="location.href='poetry-lines.html'">
+<h3>Lines</h3>
+<p><i>Open exhibit →</i></p>
+</div>
+
+<div class="writing" onclick="location.href='poetry-new-user.html'">
+<h3>New User: signed in</h3>
+<p><i>Open exhibit →</i></p>
+</div>
+
+<div class="writing" onclick="location.href='poetry-eulogy.html'">
+<h3>A Eulogy, maybe.</h3>
+<p><i>Open exhibit →</i></p>
+</div>
+
+<div class="writing" onclick="location.href='poetry-ode.html'">
+<h3>An Ode to the Cycle of Learning</h3>
+<p><i>Open exhibit →</i></p>
+</div>
+
+<div class="writing" onclick="location.href='poetry-simula.html'">
+<h3>Ang Simula at Huli</h3>
+<p><i>Open exhibit →</i></p>
+</div>
+
+<div class="writing" onclick="location.href='poetry-tmtm.html'">
+<h3>The Mind and the Mirror</h3>
+<p><i>Open exhibit →</i></p>
+</div>
+  
+<button onclick="showPage('literaryMenu')">Back</button>
+</div>
+
+<!-- ART MENU -->
+<div id="artMenu" class="page">
+<h2>Art Wing</h2>
+
+<div class="subcard" onclick="showPage('drawings')">
+Drawings
+</div>
+
+<div class="subcard" onclick="showPage('paintings')">
+Paintings
+</div>
+
+<button onclick="goHome()">Return to Lobby</button>
+</div>
+
+<!-- DRAWINGS -->
+<div id="drawings" class="page">
+<h2>Drawings Archive</h2>
+
+<div class="gallery">
+
+<div class="art-card" onclick="openLightbox('https://imgur.com/TmM5TBm.jpg','Charcoal and Graphite Drawing')">
+<img src="https://imgur.com/TmM5TBm.jpg">
+<div>Charcoal and Graphite Drawing</div>
+</div>
+
+<div class="art-card" onclick="openLightbox('https://imgur.com/YwjZsJD.jpg','Charcoal and Graphite Drawing')">
+<img src="https://imgur.com/YwjZsJD.jpg">
+<div>Charcoal and Graphite Drawing</div>
+</div>
+
+<div class="art-card" onclick="openLightbox('https://imgur.com/KJaFSzI.jpg','Graphite Sketch')">
+<img src="https://imgur.com/KJaFSzI.jpg">
+<div>Graphite Sketch</div>
+</div>
+
+<div class="art-card" onclick="openLightbox('https://imgur.com/DQL3CXQ.jpg','Charcoal and Graphite Drawing')">
+<img src="https://imgur.com/DQL3CXQ.jpg">
+<div>Charcoal and Graphite Drawing</div>
+</div>
+
+<div class="art-card" onclick="openLightbox('https://imgur.com/6x7a07d.jpg','Graphite Drawing')">
+<img src="https://imgur.com/6x7a07d.jpg">
+<div>Graphite Drawing</div>
+</div>
+
+<div class="art-card" onclick="openLightbox('https://imgur.com/NwdiiTZ.jpg','Charcoal Drawing')">
+<img src="https://imgur.com/NwdiiTZ.jpg">
+<div>Charcoal Drawing</div>
+</div>
+
+<div class="art-card" onclick="openLightbox('https://imgur.com/R5wUFxh.jpg','Graphite Sketch')">
+<img src="https://imgur.com/R5wUFxh.jpg">
+<div>Graphite Sketch</div>
+</div>
+
+<div class="art-card" onclick="openLightbox('https://imgur.com/locjrOX.jpg','Graphite Sketch')">
+<img src="https://imgur.com/locjrOX.jpg">
+<div>Graphite Sketch</div>
+</div>
+
+<div class="art-card" onclick="openLightbox('https://imgur.com/cbpM8Wv.jpg','Alcohol Markers')">
+<img src="https://imgur.com/cbpM8Wv.jpg">
+<div>Lab Drawing</div>
+</div>
+  
+</div>
+
+<button onclick="showPage('artMenu')">Back</button>
+</div>
+
+<!-- PAINTINGS -->
+<div id="paintings" class="page">
+<h2>Paintings Gallery</h2>
+
+<div class="gallery">
+
+<div class="art-card" onclick="openLightbox('https://imgur.com/6RCfXGj.jpg','Acrylic Painting')">
+<img src="https://imgur.com/6RCfXGj.jpg">
+<div>A Birthday Gift</div>
+</div>
+  
+<div class="art-card" onclick="openLightbox('https://imgur.com/mzxhnHI.jpg','Acrylic Painting')">
+<img src="https://imgur.com/mzxhnHI.jpg">
+<div>Landscape Study</div>
+</div>
+
+<div class="art-card" onclick="openLightbox('https://imgur.com/YH8hD4o.jpg','Acrylic Painting')">
+<img src="https://imgur.com/YH8hD4o.jpg">
+<div>1st Division Painting Competition</div>
+</div>
+
+<div class="art-card" onclick="openLightbox('https://imgur.com/SL5ovnQ.jpg','Acrylic Painting')">
+<img src="https://imgur.com/SL5ovnQ.jpg">
+<div>Still Life Painting</div>
+</div>
+
+<div class="art-card" onclick="openLightbox('https://imgur.com/Kx9RG6n.jpg','Acrylic Painting')">
+<img src="https://imgur.com/Kx9RG6n.jpg">
+<div>Still Life Painting</div>
+</div>
+
+<div class="art-card" onclick="openLightbox('https://imgur.com/Mv2it5P.jpg','Acrylic Painting')">
+<img src="https://imgur.com/Mv2it5P.jpg">
+<div>Still Life Painting</div>
+</div>
+
+<div class="art-card" onclick="openLightbox('https://imgur.com/Zr8MeYb.jpg','Watercolor')">
+<img src="https://imgur.com/Zr8MeYb.jpg">
+<div>Watercolor Portrait</div>
+</div>
+  
+</div>
+
+<button onclick="showPage('artMenu')">Back</button>
+</div>
+
+<!-- ABOUT MENU -->
+<div id="aboutMenu" class="page">
+
+<div class="about-hero">
+<h1>THE ARCHIVE WITHIN</h1>
+<p>An ongoing exhibit of memory, form, and voice</p>
+</div>
+
+<div class="about-maximal">
+
+<!-- LEFT COLUMN -->
+<div class="about-left">
+
+<div class="about-card statement">
+<h2>Artist Statement</h2>
+<p>
+arKAIve is not merely a collection—it is a living archive.
+Each work exists as both artifact and confession,
+preserving fragments of thought, identity, and observation.
+</p>
+</div>
+
+<div class="about-card contact">
+<h2>Correspondence</h2>
+
+<div class="contact-row">
+<span>✉</span>
+<a href="mailto:leanokaile@email.com">leanokaile@email.com</a>
+</div>
+
+<div class="contact-row">
+<span>◉</span>
+<a href="https://www.instagram.com/s.mooorez_/">@s.mooorez_</a>
+</div>
+
+<div class="contact-row">
+<span>ⓕ</span>
+<a href="https://www.facebook.com/s.mooorez/">Kaile Naomi Leaño</a>
+</div>
+
+</div>
+
+</div>
+
+<!-- RIGHT COLUMN -->
+<div class="about-right">
+
+<div class="about-card commission">
+<h2>Acquisition Requests</h2>
+
+<p class="subtext">
+Selected works may be commissioned upon request. Each inquiry is reviewed
+as part of a curated process.
+</p>
+  
+<p style="text-align:center; opacity:.7; margin-bottom:20px;">
+Each work is treated as a one-of-one piece. Pricing reflects both material and conceptual labor.
+</p>
+  
+<div class="pricing-exhibit">
+
+<h2 class="pricing-title">Acquisition Catalogue</h2>
+
+<div class="pricing-grid">
+
+<div class="price-card">
+<h3>Sketches</h3>
+<p class="price">₱500 — ₱1,500</p>
+<ul>
+<li>Graphite / charcoal</li>
+<li>Minimal detailing</li>
+<li>Single subject</li>
+</ul>
+</div>
+
+<div class="price-card highlight">
+<h3>Detailed Drawings</h3>
+<p class="price">₱1,500 — ₱4,000</p>
+<ul>
+<li>High detail rendering</li>
+<li>Portraits / studies</li>
+<li>Custom composition</li>
+</ul>
+</div>
+
+<div class="price-card">
+<h3>Paintings</h3>
+<p class="price">₱3,000 — ₱8,000+</p>
+<ul>
+<li>Acrylic / watercolor</li>
+<li>Layered textures</li>
+<li>Canvas-based work</li>
+</ul>
+</div>
+
+<div class="price-card">
+<h3>Writing</h3>
+<p class="price">₱500 — ₱2,500</p>
+<ul>
+<li>Poetry / essays</li>
+<li>Concept-driven pieces</li>
+<li>Personalized themes</li>
+</ul>
+</div>
+
+</div>
+
+<p class="pricing-note">
+✦ Final pricing varies depending on complexity, size, and conceptual depth.  
+✦ Rush commissions and multi-subject works may incur additional fees.
+</p>
+
+</div>
 <div class="form-shell">
 <p style="text-align: center;">
 <a href="https://forms.gle/KwBia7WQoXUyFwzv8" target="_blank" style="padding: 12px 24px; background: #2b2b2b; color: white; text-decoration: none; border-radius: 999px; display: inline-block; transition: .3s;">Open Acquisition Request Form</a>
 </p>
 </div>
+
+</div>
+
+</div>
+
+</div>
+
+<button onclick="goHome()">Return to Lobby</button>
+</div>
+</div>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" onclick="closeLightbox()">
+<img id="lightbox-img">
+<span id="lightbox-title"></span>
+</div>
+
+<!-- JOURNAL -->
+<div id="journalView" class="page">
+<div id="journal">
+<h2 id="journal-title"></h2>
+<p id="journal-content"></p>
+<button onclick="closeJournal()">Return</button>
+</div>
+</div>
+
+</div>
+
+<script>
+function showPage(id){
+document.querySelectorAll('.page').forEach(p=>{
+p.classList.remove('active');
+});
+document.getElementById(id).classList.add('active');
+}
+
+function goHome(){
+showPage('home');
+}
+
+function openLightbox(src,title){
+document.getElementById('lightbox').style.display='flex';
+document.getElementById('lightbox-img').src=src;
+document.getElementById('lightbox-title').innerText=title;
+}
+
+function closeLightbox(){
+document.getElementById('lightbox').style.display='none';
+}
+
+function openJournal(title,content){
+showPage('journalView');
+document.getElementById('journal-title').innerText=title;
+document.getElementById('journal-content').innerText=content;
+}
+
+function closeJournal(){
+showPage('poems');
+}
+</script>
+
+</body>
+</html>
